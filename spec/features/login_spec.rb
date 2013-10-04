@@ -68,6 +68,19 @@ describe "Logging in" do
 
   context "when successful" do
 
+    it "Login is successful" do
+      User.destroy_all
+      signup("jim@jimvanfleet.com")
+      logout
+      visit root_path
+      click_link "Sign In"
+        
+      within("#new_user") do
+        fill_in "Email", :with => "jim@jimvanfleet.com"
+        fill_in "Password", :with => "12345678"
+        click_button "Sign in"
+      end
+      expect(page).to have_content("successful")
+    end
   end
-
 end
